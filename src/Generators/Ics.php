@@ -182,14 +182,14 @@ class Ics implements Generator
                 $component->DTSTART = $dt->format('Ymd\THis');
                 $component->TZOFFSETFROM = sprintf(
                     '%s%02d%02d',
-                    $tzfrom >= 0 ? '+' : '',
-                    floor($tzfrom),
+                    $tzfrom >= 0 ? '+' : '-',
+                    abs(floor($tzfrom)),
                     ($tzfrom - floor($tzfrom)) * 60
                 );
                 $component->TZOFFSETTO = sprintf(
                     '%s%02d%02d',
-                    $offset >= 0 ? '+' : '',
-                    floor($offset),
+                    $offset >= 0 ? '+' : '-',
+                    abs(floor($offset)),
                     ($offset - floor($offset)) * 60
                 );
 
