@@ -2,11 +2,11 @@
 
 namespace Spatie\CalendarLinks\Generators;
 
+use Sabre\VObject\Component;
+use Sabre\VObject\Component\VCalendar;
+use Sabre\VObject\TimeZoneUtil;
 use Spatie\CalendarLinks\Generator;
 use Spatie\CalendarLinks\Link;
-use Sabre\VObject\Component;
-use Sabre\VObject\TimeZoneUtil;
-use Sabre\VObject\Component\VCalendar;
 
 /**
  * @see https://icalendar.org/RFC-Specifications/iCalendar-RFC-5545/
@@ -64,14 +64,14 @@ class Ics implements Generator
         }
 
         if ($link->from instanceof \DateTimeImmutable) {
-          $from = \DateTime::createFromImmutable($link->from);
+            $from = \DateTime::createFromImmutable($link->from);
         } else {
-          $from = $link->from;
+            $from = $link->from;
         }
         if ($link->to instanceof \DateTimeImmutable) {
-          $to = \DateTime::createFromImmutable($link->to);
+            $to = \DateTime::createFromImmutable($link->to);
         } else {
-          $to = $link->to;
+            $to = $link->to;
         }
         $this->addVTimezoneComponents($vcalendar, $timeZones, $from, $to);
 
@@ -180,10 +180,18 @@ class Ics implements Generator
                 $offset = $trans['offset'] / 3600;
 
                 $component->DTSTART = $dt->format('Ymd\THis');
-                $component->TZOFFSETFROM = sprintf('%s%02d%02d', $tzfrom >= 0 ? '+' : '', floor($tzfrom),
-                    ($tzfrom - floor($tzfrom)) * 60);
-                $component->TZOFFSETTO = sprintf('%s%02d%02d', $offset >= 0 ? '+' : '', floor($offset),
-                    ($offset - floor($offset)) * 60);
+                $component->TZOFFSETFROM = sprintf(
+                    '%s%02d%02d',
+                    $tzfrom >= 0 ? '+' : '',
+                    floor($tzfrom),
+                    ($tzfrom - floor($tzfrom)) * 60
+                );
+                $component->TZOFFSETTO = sprintf(
+                    '%s%02d%02d',
+                    $offset >= 0 ? '+' : '',
+                    floor($offset),
+                    ($offset - floor($offset)) * 60
+                );
 
                 // add abbreviated timezone name if available
                 if (! empty($trans['abbr'])) {

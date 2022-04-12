@@ -2,10 +2,10 @@
 
 namespace Spatie\CalendarLinks\Tests\Generators;
 
+use Sabre\VObject\Component\VCalendar;
 use Spatie\CalendarLinks\Generator;
 use Spatie\CalendarLinks\Generators\Ics;
 use Spatie\CalendarLinks\Tests\TestCase;
-use Sabre\VObject\Component\VCalendar;
 
 class IcsGeneratorTest extends TestCase
 {
